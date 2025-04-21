@@ -6,24 +6,28 @@ FindMyProvider is a React Native app built using Expo. It allows users to search
 
 ## 📱 Features
 
+- User authentication (Sign In / Sign Up UI)
+- Conditional navigation based on login state
+- Bottom tab navigation for Search, Profile, and About
+- Profile screen with editable info and sign-out button
 - Search by Name or Specialty
 - ZIP code + Radius filtering
 - Gender & Language dropdown filters
 - Accepting new patients toggle
 - Search results with provider cards
-- Provider details screen
+- Provider details screen with icon sections and mock data
 - Input validation & error handling
 - “No results” screen
-- About screen with app + dev info
+- About screen with app + developer info
 
 ---
 
 ## 🧰 Tech Stack
 
 - React Native (Expo)
-- React Navigation (Native Stack)
+- React Navigation (Stack + Bottom Tabs)
 - Mock data for Horizon Blue sandbox API
-- Custom form components with validation
+- Custom form components with validation and state management
 
 ---
 
