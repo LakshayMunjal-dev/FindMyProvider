@@ -22,6 +22,18 @@ FindMyProvider is a React Native app built using Expo. It allows users to search
 
 ---
 
+## 📸 Screenshots
+
+| Sign In | Sign Up | Search |
+|---------|---------|--------|
+| ![SignIn](screenshots/signin.png) | ![SignUp](screenshots/signup.png) | ![Search](screenshots/search.png) |
+
+| Results | Details | Profile | About |
+|---------|---------|---------|--------|
+| ![Results](screenshots/results.png) | ![Details](screenshots/details.png) | ![Profile](screenshots/profile.png) | ![About](screenshots/about.png) |
+
+---
+
 ## 🧰 Tech Stack
 
 - React Native (Expo)
