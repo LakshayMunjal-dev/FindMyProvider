@@ -4,17 +4,31 @@ import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet }
 const mockProviders = [
   {
     id: '1',
-    name: 'Dr. Aditi Sharma',
+    name: 'Dr. Aditi Sharma, MD',
     specialty: 'Cardiology',
-    phone: '(123) 456-7890',
+    gender: 'Female',
+    languages: 'English, Hindi',
+    practiceType: 'Individual',
     address: '101 Health Ave, Newark, NJ 07102',
+    phone: '(123) 456-7890',
+    email: 'aditi@horizonmed.com',
+    hospitalAffiliations: 'Saint Michael’s Hospital',
+    boardAffiliations: 'American Board of Cardiology',
+    networkParticipations: 'Horizon Managed Care: Yes\nHorizon PPO: Yes',
   },
   {
     id: '2',
-    name: 'Dr. Ravi Patel',
+    name: 'Dr. Ravi Patel, MD',
     specialty: 'Dermatology',
-    phone: '(987) 654-3210',
+    gender: 'Male',
+    languages: 'English',
+    practiceType: 'Group',
     address: '202 Skin Blvd, Jersey City, NJ 07302',
+    phone: '(987) 654-3210',
+    email: 'ravi@horizonmed.com',
+    hospitalAffiliations: 'City MD',
+    boardAffiliations: 'American Board of Dermatology',
+    networkParticipations: 'Horizon Managed Care: Yes\nHorizon PPO: No',
   },
 ];
 
@@ -24,7 +38,7 @@ export default function ResultsScreen({ navigation }) {
 
   useEffect(() => {
     setTimeout(() => {
-      setResults([mockProviders]);
+      setResults(mockProviders);
       setLoading(false);
     }, 1000);
   }, []);
@@ -45,7 +59,7 @@ export default function ResultsScreen({ navigation }) {
     <View style={styles.container}>
       <FlatList
         data={results}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.card}
