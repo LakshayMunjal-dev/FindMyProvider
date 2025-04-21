@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import logo from '../assets/Logo.png';
 
 export default function AboutScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Image source={logo} style={styles.logo} />
+
       <Text style={styles.title}>About FindMyProvider</Text>
 
       <Text style={styles.sectionTitle}>Purpose</Text>
@@ -32,6 +35,16 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     backgroundColor: '#fff',
+    flexGrow: 1,
+    justifyContent: 'flex-start'
+  },
+  logo: {
+    width: 300,
+    height: 90,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginBottom: 80,
+    marginTop: 40,
   },
   title: {
     fontSize: 24,
