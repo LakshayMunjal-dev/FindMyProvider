@@ -20,6 +20,7 @@ export default function SearchScreen({ navigation }) {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image source={logo} style={styles.logo} />
+        <Text style={styles.title}>Search for Providers</Text>
       </View>
 
       <View style={styles.field}>
@@ -121,13 +122,6 @@ export default function SearchScreen({ navigation }) {
       }}>
         <Text style={styles.searchButtonText}>Search</Text>
       </TouchableOpacity>
-      
-      <TouchableOpacity
-        onPress={() => navigation.navigate('About')}
-        style={{ marginTop: 20, marginBottom: 20, alignSelf: 'center' }}
-      >
-        <Text style={{ color: '#1E90FF', fontWeight: '600' }}>About this app</Text>
-      </TouchableOpacity> 
      
     </ScrollView>
   );
@@ -144,14 +138,14 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 260,
-    height: 80,
+    height: 90,
     resizeMode: 'contain',
-    marginBottom: 10,
+    marginTop: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 6,
+    marginTop: 5
   },
   subtitle: {
     fontSize: 20,
