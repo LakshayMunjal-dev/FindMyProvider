@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  View, Text, TextInput, Button, StyleSheet, Switch, ScrollView, TouchableOpacity, Image
+  View, Text, TextInput, Button, StyleSheet, Switch, ScrollView, TouchableOpacity, Image, ActivityIndicator
 } from 'react-native';
 import logo from '../assets/Logo.png';
 import { Picker } from '@react-native-picker/picker';
 import { Alert } from 'react-native';
-
-
+import { fetchProviders } from '../utils/fetchProviders';
 
 export default function SearchScreen({ navigation }) {
   const [nameOrSpecialty, setNameOrSpecialty] = useState('');
@@ -15,6 +14,41 @@ export default function SearchScreen({ navigation }) {
   const [gender, setGender] = useState('');
   const [language, setLanguage] = useState('');
   const [acceptingNewPatients, setAcceptingNewPatients] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = async () => {
+    if (!zipCode) {
+      Alert.alert("Missing Info", "Please enter at ZIP Code.");
+      return;
+    }
+
+    if (zipCode && !/^[0-9]{5}$/.test(zipCode)) {
+      Alert.alert("Invalid ZIP", "Please enter a valid 5-digit ZIP Code.");
+      return;
+    }
+
+    const nameParts = nameOrSpecialty.trim().split(' ');
+    const firstName = nameParts.length > 0 ? nameParts[0] : '';
+    const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
+
+    setLoading(true);
+
+    try {
+      const providers = await fetchProviders(firstName, lastName, zipCode);
+
+      setLoading(false);
+
+      if (providers.length > 0) {
+        navigation.navigate('Results', { providers });
+      } else {
+        navigation.navigate('Results', { providers: [] });
+      }
+    } catch (error) {
+      console.error("Error during search:", error);
+      setLoading(false);
+      Alert.alert("Error", "Failed to fetch providers. Please try again later.");
+    }
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -97,32 +131,17 @@ export default function SearchScreen({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity style={styles.searchButton} onPress={() => {
-        if (!nameOrSpecialty && !zipCode) {
-          Alert.alert("Missing Info", "Please enter both Name/Specialty and ZIP Code.");
-          return;
-        }
-
-        if (!nameOrSpecialty) {
-          Alert.alert("Missing Info", "Please enter a Name or Specialty.");
-          return;
-        }
-
-        if (!zipCode) {
-          Alert.alert("Missing Info", "Please enter a ZIP Code.");
-          return;
-        }
-
-        if (!/^[0-9]{5}$/.test(zipCode)) {
-          Alert.alert("Invalid ZIP", "Please enter a valid 5-digit ZIP Code.");
-          return;
-        }
-
-        navigation.navigate('Results');
-      }}>
-        <Text style={styles.searchButtonText}>Search</Text>
-      </TouchableOpacity>
-     
+      {loading ? (
+        <ActivityIndicator size="large" color="#1E90FF" style={{ marginVertical: 20 }} />
+      ) : (
+        <TouchableOpacity
+          style={styles.searchButton}
+          onPress={handleSearch}
+          disabled={loading}
+        >
+          <Text style={styles.searchButtonText}>Search</Text>
+        </TouchableOpacity>
+      )}
     </ScrollView>
   );
 }
