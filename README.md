@@ -1,6 +1,6 @@
 # FindMyProvider
 
-FindMyProvider is a React Native app built using Expo. It allows users to search for healthcare providers based on specialty, ZIP code, radius, gender, language, and availability.
+FindMyProvider is a React Native app built using Expo. It allows users to search for healthcare providers based on specialty, ZIP code, credential and location using real CMS NPI Registry API data.
 
 ---
 
@@ -14,8 +14,8 @@ FindMyProvider is a React Native app built using Expo. It allows users to search
 - ZIP code + Radius filtering
 - Gender & Language dropdown filters
 - Accepting new patients toggle
-- Search results with provider cards
-- Provider details screen with icon sections and mock data
+- Real-time search results from CMS NPI Registry API
+- Provider details screen with credential, NPI number, entity type, and status
 - Input validation & error handling
 - “No results” screen
 - About screen with app + developer info
@@ -38,7 +38,7 @@ FindMyProvider is a React Native app built using Expo. It allows users to search
 
 - React Native (Expo)
 - React Navigation (Stack + Bottom Tabs)
-- Mock data for Horizon Blue sandbox API
+- CMS NPI Registry API for live provider data
 - Custom form components with validation and state management
 
 ---
@@ -70,9 +70,3 @@ npm start
 **Lakshay Munjal**  
 Capstone Project – Spring 2025  
 New Jersey Institute of Technology
-
----
-
-## 📄 Note
-
-This app is developed for Capstone project academic purposes. API data is simulated based on Horizon BCBS sandbox schema due to lack of live provider data in their environment.
