@@ -11,12 +11,14 @@ export default function AboutScreen() {
 
       <Text style={styles.sectionTitle}>Purpose</Text>
       <Text style={styles.text}>
-        This app allows users to search for healthcare providers based on filters such as specialty, location, gender, and language.
+        FindMyProvider helps users search for healthcare providers based on specialty, credential, ZIP code, and location.
+        The app aims to make it easier for individuals to locate appropriate medical professionals based on their needs.
       </Text>
 
       <Text style={styles.sectionTitle}>Data Source</Text>
       <Text style={styles.text}>
-        The app integrates with Horizon Blue Cross Blue Shield's Provider Directory Sandbox API. Due to the lack of live sandbox data, mock responses are used for UI demonstration.
+        This application integrates with the CMS NPI Registry API, utilizing real healthcare provider data.
+        Only publicly available information is retrieved and displayed for demonstration purposes.
       </Text>
 
       <Text style={styles.sectionTitle}>Developer</Text>
@@ -25,7 +27,7 @@ export default function AboutScreen() {
       </Text>
 
       <Text style={styles.footer}>
-        This is a Capstone individual project.
+        This is a Capstone individual project - New Jersey Institute of Techology
       </Text>
     </ScrollView>
   );
