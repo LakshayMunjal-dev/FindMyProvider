@@ -1,20 +1,23 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Image } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { FontAwesome, MaterialIcons, Entypo, FontAwesome5 } from '@expo/vector-icons';
 
 export default function ProviderDetails({ route }) {
-  const provider = route.params?.provider || {
-    name: "Dr. Annette Williamson, MD",
-    specialty: "Cardiology",
-    gender: "Female",
-    languages: "English, Spanish",
-    practiceType: "Individual",
-    address: "123 Main St, Newark, NJ 07102",
-    phone: "(123) 456-7693",
-    email: "anne@horizonmed.com",
-    hospitalAffiliations: "Saint Michael’s Hospital, City MD",
-    boardAffiliations: "American Board of Internal Medicine",
-    networkParticipations: "Horizon Managed Care: Yes\nHorizon PPO: Yes"
+  const { provider } = route.params || {};
+
+  const formatPhoneNumber = (phone) => {
+    if (!phone) return 'N/A';
+    const cleaned = ('' + phone).replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+    return phone;
+  };
+
+  const formatAddress = (address) => {
+    if (!address) return 'N/A';
+    return `${address.address_1 || ''}, ${address.city || ''}, ${address.state || ''} ${address.postal_code || ''}`.replace(/, ,/g, ',').trim();
   };
 
   return (
@@ -24,10 +27,12 @@ export default function ProviderDetails({ route }) {
       {/* Top Card */}
       <View style={styles.card}>
         <View style={styles.cardText}>
-          <Text style={styles.name}>{provider.name}</Text>
-          <Text>Speciality: {provider.specialty}</Text>
-          <Text>Gender: {provider.gender}</Text>
-          <Text>Languages: {provider.languages}</Text>
+          <Text style={styles.name}>
+            {provider.basic?.first_name || ''} {provider.basic?.last_name || provider.basic?.organization_name || ''}
+          </Text>
+          <Text>Credential: {provider.basic?.credential || 'N/A'}</Text>
+          <Text>Specialty: {provider.taxonomies?.[0]?.desc || 'N/A'}</Text>
+          <Text>NPI Number: {provider.number || 'N/A'}</Text>
         </View>
       </View>
 
@@ -36,8 +41,8 @@ export default function ProviderDetails({ route }) {
         <View style={styles.row}>
           <FontAwesome name="building-o" size={20} style={styles.icon} />
           <View>
-            <Text style={styles.label}>Horizon Medical Group</Text>
-            <Text>Practice Type: {provider.practiceType}</Text>
+            <Text style={styles.label}>Entity Type</Text>
+            <Text>{provider.enumeration_type === 'NPI-1' ? 'Individual' : 'Organization'}</Text>
           </View>
         </View>
 
@@ -45,7 +50,7 @@ export default function ProviderDetails({ route }) {
           <Entypo name="address" size={20} style={styles.icon} />
           <View>
             <Text style={styles.label}>Address</Text>
-            <Text>{provider.address}</Text>
+            <Text>{formatAddress(provider.addresses?.[0])}</Text>
           </View>
         </View>
 
@@ -53,8 +58,7 @@ export default function ProviderDetails({ route }) {
           <MaterialIcons name="contact-phone" size={20} style={styles.icon} />
           <View>
             <Text style={styles.label}>Contact</Text>
-            <Text>Phone: {provider.phone}</Text>
-            <Text>Email: {provider.email}</Text>
+            <Text>Phone: {formatPhoneNumber(provider.addresses?.[0]?.telephone_number)}</Text>
           </View>
         </View>
 
@@ -62,23 +66,15 @@ export default function ProviderDetails({ route }) {
           <FontAwesome5 name="hospital" size={20} style={styles.icon} />
           <View>
             <Text style={styles.label}>Hospital Affiliations</Text>
-            <Text>{provider.hospitalAffiliations}</Text>
+            <Text>Not Available</Text>
           </View>
         </View>
 
         <View style={styles.row}>
           <FontAwesome name="graduation-cap" size={20} style={styles.icon} />
           <View>
-            <Text style={styles.label}>Board Affiliations</Text>
-            <Text>{provider.boardAffiliations}</Text>
-          </View>
-        </View>
-
-        <View style={styles.row}>
-          <FontAwesome name="folder" size={20} style={styles.icon} />
-          <View>
-            <Text style={styles.label}>Network Participations</Text>
-            <Text>{provider.networkParticipations}</Text>
+            <Text style={styles.label}>Status</Text>
+            <Text>{provider.basic?.status === 'A' ? 'Active' : 'Inactive'}</Text>
           </View>
         </View>
       </View>
