@@ -1,53 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 
-const mockProviders = [
-  {
-    id: '1',
-    name: 'Dr. Aditi Sharma, MD',
-    specialty: 'Cardiology',
-    gender: 'Female',
-    languages: 'English, Hindi',
-    practiceType: 'Individual',
-    address: '101 Health Ave, Newark, NJ 07102',
-    phone: '(123) 456-7890',
-    email: 'aditi@horizonmed.com',
-    hospitalAffiliations: 'Saint Michael’s Hospital',
-    boardAffiliations: 'American Board of Cardiology',
-    networkParticipations: 'Horizon Managed Care: Yes\nHorizon PPO: Yes',
-  },
-  {
-    id: '2',
-    name: 'Dr. Ravi Patel, MD',
-    specialty: 'Dermatology',
-    gender: 'Male',
-    languages: 'English',
-    practiceType: 'Group',
-    address: '202 Skin Blvd, Jersey City, NJ 07302',
-    phone: '(987) 654-3210',
-    email: 'ravi@horizonmed.com',
-    hospitalAffiliations: 'City MD',
-    boardAffiliations: 'American Board of Dermatology',
-    networkParticipations: 'Horizon Managed Care: Yes\nHorizon PPO: No',
-  },
-];
+export default function ResultsScreen({ route, navigation }) {
 
-export default function ResultsScreen({ navigation }) {
-  const [loading, setLoading] = useState(true);
-  const [results, setResults] = useState([]);
+  const { providers = [] } = route.params || {};
 
-  useEffect(() => {
-    setTimeout(() => {
-      setResults(mockProviders);
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  if (loading) {
-    return <ActivityIndicator size="large" style={{ flex: 1, justifyContent: 'center' }} />;
-  }
-
-  if (results.length === 0) {
+  if (providers.length === 0) {
     return (
       <View style={styles.center}>
         <Text style={styles.noResults}>No results found</Text>
@@ -58,17 +16,20 @@ export default function ResultsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={results}
-        keyExtractor={(item) => item.id.toString()}
+        data={providers}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.card}
             onPress={() => navigation.navigate('Details', { provider: item })}
           >
-            <Text style={styles.name}>{item.name}</Text>
-            <Text>{item.specialty}</Text>
-            <Text>{item.phone}</Text>
-            <Text>{item.address}</Text>
+            <Text style={styles.name}>
+            {item.basic?.first_name || ''} {item.basic?.last_name || item.basic?.organization_name || ''}
+            </Text>
+            <Text>Credential: {item.basic?.credential || 'N/A'}</Text>
+            <Text>Specialty: {item.taxonomies?.[0]?.desc || 'N/A'}</Text>
+            <Text>City: {item.addresses?.[0]?.city || 'N/A'}, {item.addresses?.[0]?.state || ''}</Text>
+            <Text>NPI Number: {item.number || 'N/A'}</Text>
           </TouchableOpacity>
         )}
       />
