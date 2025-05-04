@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  View, Text, TextInput, Button, StyleSheet, Switch, ScrollView, TouchableOpacity, Image, ActivityIndicator
+  View, Text, TextInput, StyleSheet, Switch, ScrollView, TouchableOpacity, Image, ActivityIndicator
 } from 'react-native';
 import logo from '../assets/Logo.png';
 import { Picker } from '@react-native-picker/picker';
@@ -10,11 +10,12 @@ import { fetchProviders } from '../utils/fetchProviders';
 export default function SearchScreen({ navigation }) {
   const [nameOrSpecialty, setNameOrSpecialty] = useState('');
   const [zipCode, setZipCode] = useState('');
-  const [radius, setRadius] = useState('');
+  const [resultLimit, setResultLimit] = useState('50');
   const [gender, setGender] = useState('');
-  const [language, setLanguage] = useState('');
+  const [entityType, setEntityType] = useState('');
   const [acceptingNewPatients, setAcceptingNewPatients] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [taxonomy, setTaxonomy] = useState('');
 
   const handleSearch = async () => {
     if (!zipCode) {
@@ -34,7 +35,7 @@ export default function SearchScreen({ navigation }) {
     setLoading(true);
 
     try {
-      const providers = await fetchProviders(firstName, lastName, zipCode);
+      const providers = await fetchProviders(firstName, lastName, zipCode, gender, taxonomy, entityType, resultLimit);
 
       setLoading(false);
 
@@ -81,15 +82,38 @@ export default function SearchScreen({ navigation }) {
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.label}>Radius (miles)</Text>
+        <Text style={styles.label}>Number of Results</Text>
         <TextInput
           style={styles.input}
-          placeholder="e.g., 10"
+          placeholder="e.g., 25"
           placeholderTextColor="#888"
-          value={radius}
+          value={resultLimit}
           keyboardType="numeric"
-          onChangeText={setRadius}
+          onChangeText={setResultLimit}
         />
+      </View>
+
+      <View style={styles.field}>
+        <Text style={styles.label}>Specialty</Text>
+        <View style={styles.pickerWrapper}>
+          <Picker
+            selectedValue={taxonomy}
+            onValueChange={(itemValue) => setTaxonomy(itemValue)}
+            style={styles.picker}
+          >
+            <Picker.Item label="Select Specialty" value="" color="#888"/>
+            <Picker.Item label="Internal Medicine" value="Internal Medicine" color="#888"/>
+            <Picker.Item label="Cardiology" value="Cardiology" color="#888"/>
+            <Picker.Item label="Family Practice" value="Family Practice" color="#888"/>
+            <Picker.Item label="Pediatrics" value="Pediatrics" color="#888"/>
+            <Picker.Item label="Dermatology" value="Dermatology" color="#888"/>
+            <Picker.Item label="Psychiatry" value="Psychiatry" color="#888"/>
+            <Picker.Item label="Orthopedic Surgery" value="Orthopedic Surgery" color="#888"/>
+            <Picker.Item label="Radiology" value="Radiology" color="#888"/>
+            <Picker.Item label="Anesthesiology" value="Anesthesiology" color="#888"/>
+            <Picker.Item label="General Surgery" value="Surgery" color="#888"/>
+          </Picker>
+        </View>
       </View>
 
       <View style={styles.field}>
@@ -100,28 +124,29 @@ export default function SearchScreen({ navigation }) {
             onValueChange={(itemValue) => setGender(itemValue)}
             style={styles.picker}
           >
-            <Picker.Item label="Select Gender" value="" color="#888" />
-            <Picker.Item label="Male" value="male" color="#888"/>
-            <Picker.Item label="Female" value="female" color="#888"/>
+            <Picker.Item label="Select Gender" value="" color="#888"/>
+            <Picker.Item label="Male" value="M" color="#888"/>
+            <Picker.Item label="Female" value="F" color="#888"/>
+            <Picker.Item label="Other" value="X" color="#888"/>
           </Picker>
         </View>
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.label}>Language</Text>
+        <Text style={styles.label}>Entity Type</Text>
         <View style={styles.pickerWrapper}>
           <Picker
-            selectedValue={language}
-            onValueChange={(itemValue) => setLanguage(itemValue)}
+            selectedValue={entityType}
+            onValueChange={setEntityType}
             style={styles.picker}
           >
-            <Picker.Item label="Select Language" value="" color="#888" />
-            <Picker.Item label="English" value="english" color="#888"/>
-            <Picker.Item label="Spanish" value="spanish" color="#888"/>
-            <Picker.Item label="Hindi" value="hindi" color="#888"/>
+            <Picker.Item label="Select Entity Type" value="" color="#888" />
+            <Picker.Item label="Individual (NPI-1)" value="NPI-1" color="#888" />
+            <Picker.Item label="Organization (NPI-2)" value="NPI-2" color="#888" />
           </Picker>
         </View>
       </View>
+
 
       <View style={styles.switchContainer}>
         <Text style={styles.label}>Accepting New Patients</Text>
