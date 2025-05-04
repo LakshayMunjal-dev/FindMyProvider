@@ -42,7 +42,7 @@ export default function ProviderDetails({ route }) {
           <FontAwesome name="building-o" size={20} style={styles.icon} />
           <View>
             <Text style={styles.label}>Entity Type</Text>
-            <Text>{provider.enumeration_type === 'NPI-1' ? 'Individual' : 'Organization'}</Text>
+            <Text>{provider.enumeration_type === 'NPI-1' ? 'Individual (NPI-1)' : 'Organization (NPI-2)'}</Text>
           </View>
         </View>
 
