@@ -11,7 +11,7 @@ export default function AboutScreen() {
 
       <Text style={styles.sectionTitle}>Purpose</Text>
       <Text style={styles.text}>
-        FindMyProvider is a mobile app that helps users search for healthcare providers using real-time CMS NPI Registry data.
+        FindMyProvider is a mobile app that helps users search for healthcare providers using real-time CMS NPI Registry data.{'\n'}
         Users can filter by specialty, ZIP code, gender, entity type, and more to find providers that match their needs.
       </Text>
 
@@ -22,9 +22,9 @@ export default function AboutScreen() {
 
       <Text style={styles.sectionTitle}>Developer</Text>
       <Text style={styles.text}>
-        Lakshay Munjal
-        Capstone Project – Spring 2025
-        New Jersey Institute of Technology
+        Lakshay Munjal{'\n'}
+        Capstone Project – Spring 2025{'\n'}
+        New Jersey Institute of Technology{'\n'}
         Email: lm485@njit.edu
       </Text>
       
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     height: 90,
     resizeMode: 'contain',
     alignSelf: 'center',
-    marginBottom: 80,
+    marginBottom: 40,
     marginTop: 40,
   },
   title: {
