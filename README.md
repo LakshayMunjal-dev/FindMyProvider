@@ -67,7 +67,7 @@ npm start
 
 ## 📦 API Source
 
-This app uses the [CMS NPI Registry API](https://npiregistry.cms.hhs.gov/api-page) to fetch live provider data in the United States. No authentication required.
+This app uses the [CMS NPI Registry API](https://npiregistry.cms.hhs.gov/api-page) to fetch live provider data in the United States.
 
 ---
 
