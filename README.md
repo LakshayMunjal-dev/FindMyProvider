@@ -1,23 +1,23 @@
 # FindMyProvider
 
-FindMyProvider is a React Native app built using Expo. It allows users to search for healthcare providers based on specialty, ZIP code, credential and location using real CMS NPI Registry API data.
+FindMyProvider is a mobile app built with React Native (Expo). It allows users to search for healthcare providers based on specialty, ZIP code, credential and location using real CMS NPI Registry API data.
 
 ---
 
 ## 📱 Features
 
-- User authentication (Sign In / Sign Up UI)
-- Conditional navigation based on login state
-- Bottom tab navigation for Search, Profile, and About
-- Profile screen with editable info and sign-out button
+- Clean UI with Sign In / Sign Up screens
 - Search by Name or Specialty
-- ZIP code + Radius filtering
-- Gender & Language dropdown filters
-- Accepting new patients toggle
-- Real-time search results from CMS NPI Registry API
-- Provider details screen with credential, NPI number, entity type, and status
-- Input validation & error handling
-- “No results” screen
+- ZIP Code filtering (5-digit)
+- Filters by:
+  - Gender (Male / Female)
+  - Specialty (taxonomy dropdown)
+  - Entity Type (Individual / Organization)
+  - Number of Results (limit selector)
+- Results list with provider name, specialty, and city/state
+- Detailed provider view with credential, NPI number, address, phone, status
+- Input validation and error handling
+- “No results found” fallback screen
 - About screen with app + developer info
 
 ---
@@ -36,10 +36,10 @@ FindMyProvider is a React Native app built using Expo. It allows users to search
 
 ## 🧰 Tech Stack
 
-- React Native (Expo)
-- React Navigation (Stack + Bottom Tabs)
-- CMS NPI Registry API for live provider data
-- Custom form components with validation and state management
+- **React Native (Expo SDK 53)**
+- **React Navigation** (stack + bottom tabs)
+- **CMS NPI Registry API** – for healthcare provider data (https://npiregistry.cms.hhs.gov/api-page)
+- State management with React Hooks
 
 ---
 
@@ -65,8 +65,15 @@ npm start
 
 ---
 
+## 📦 API Source
+
+This app uses the [CMS NPI Registry API](https://npiregistry.cms.hhs.gov/api-page) to fetch live provider data in the United States. No authentication required.
+
+---
+
 ## 👤 Developed By
 
 **Lakshay Munjal**  
+[Email: lm485@njit.edu](mailto:lm485@njit.edu)
 Capstone Project – Spring 2025  
 New Jersey Institute of Technology
