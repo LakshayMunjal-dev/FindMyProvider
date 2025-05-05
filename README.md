@@ -75,5 +75,6 @@ This app uses the [CMS NPI Registry API](https://npiregistry.cms.hhs.gov/api-pag
 
 **Lakshay Munjal**  
 [Email: lm485@njit.edu](mailto:lm485@njit.edu)
+
 Capstone Project – Spring 2025  
 New Jersey Institute of Technology
