@@ -11,24 +11,23 @@ export default function AboutScreen() {
 
       <Text style={styles.sectionTitle}>Purpose</Text>
       <Text style={styles.text}>
-        FindMyProvider helps users search for healthcare providers based on specialty, credential, ZIP code, and location.
-        The app aims to make it easier for individuals to locate appropriate medical professionals based on their needs.
+        FindMyProvider is a mobile app that helps users search for healthcare providers using real-time CMS NPI Registry data.
+        Users can filter by specialty, ZIP code, gender, entity type, and more to find providers that match their needs.
       </Text>
 
       <Text style={styles.sectionTitle}>Data Source</Text>
       <Text style={styles.text}>
-        This application integrates with the CMS NPI Registry API, utilizing real healthcare provider data.
-        Only publicly available information is retrieved and displayed for demonstration purposes.
+        All data displayed is sourced from the publicly available CMS National Plan and Provider Enumeration System (NPPES) registry.
       </Text>
 
       <Text style={styles.sectionTitle}>Developer</Text>
       <Text style={styles.text}>
         Lakshay Munjal
+        Capstone Project – Spring 2025
+        New Jersey Institute of Technology
+        Email: lm485@njit.edu
       </Text>
-
-      <Text style={styles.footer}>
-        This is a Capstone individual project - New Jersey Institute of Techology
-      </Text>
+      
     </ScrollView>
   );
 }
